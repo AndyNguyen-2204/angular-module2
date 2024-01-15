@@ -10,10 +10,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './shared/component/header/header.component';
 
 @NgModule({
-    declarations: [AppComponent, LoginComponent,HeaderComponent,DashboardComponent],
-    imports: [BrowserModule, AppRouter, FormsModule,
-        HttpClientModule],
-    providers: [],
-    bootstrap: [AppComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HeaderComponent,
+    DashboardComponent,
+  ],
+  imports: [BrowserModule, AppRouter, FormsModule, HttpClientModule],
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { UserService } from '../shared/components/auth/user.service';
+import { UserService } from '../shared/component/auth/user.service';
 
 @Component({
-  selector: 'app-user',
+  selector: 'UserComponent',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })

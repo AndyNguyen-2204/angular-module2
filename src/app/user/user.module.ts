@@ -17,8 +17,6 @@ const routes: Routes = [
       component: UserComponent,
       children: [
         { path: '', component: ListUsersComponent },
-        // { path: 'create', component: CreateUserComponent },
-        // { path: 'edit/:username', component: EditUserComponent }
       ]
     }
 ];
@@ -26,6 +24,7 @@ const routes: Routes = [
   @NgModule({
     declarations: [
       ListUsersComponent,
+      UserComponent
     ],
     imports: [
       CommonModule,

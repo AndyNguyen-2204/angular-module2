@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from '../shared/component/auth/user.service';
 
 @Component({
-  selector: 'UserComponent',
+  selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })

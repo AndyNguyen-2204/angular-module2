@@ -19,7 +19,7 @@ export class UserService {
 
     if (userExists) {
       // Return an observable indicating that the user already exists
-      return of({ success: false, reason: 'User already exists' });
+      return of({ success: false, reason: 'Tên tài khoản đã tồn tại!' });
     }
 
     // Add new user data
@@ -52,16 +52,16 @@ export class UserService {
 
   //remove User
   removeUser(
-    username: string
+    id: string
   ): Observable<{ success: boolean; reason?: string }> {
     // Check if the user to be removed exists
     const userIndex = this.demoUsers.findIndex(
-      (user) => user.username === username
+      (user) => user.id === id
     );
 
     if (userIndex === -1) {
       // Return an observable indicating that the user does not exist
-      return of({ success: false, reason: 'User not found' });
+      return of({ success: false, reason: 'Tài khoản không tồn tại!' });
     }
 
     // Remove the user from the array

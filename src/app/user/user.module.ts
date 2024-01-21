@@ -5,11 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ListUsersComponent } from './list/listUser.component';
 import { UserComponent } from './user.component';
 import { RouterModule, Routes } from '@angular/router';
-// import { EditUserComponent } from './edit/edit.component';
-// import { ProfileUserComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
-// import { UserFilterPipe } from './pipes/user-filter.pipe';
-// import { NgxPaginationModule } from 'ngx-pagination';
+import { DialogModule } from 'primeng/dialog'; // Import DialogModule
+import { TableModule } from 'primeng/table'; // Import TableModule
 
 const routes: Routes = [
     {
@@ -31,6 +29,8 @@ const routes: Routes = [
       ReactiveFormsModule,
       RouterModule.forChild(routes),
       FormsModule,
+      DialogModule, // Add DialogModule here
+      TableModule,
     ],
     providers: [
     ],

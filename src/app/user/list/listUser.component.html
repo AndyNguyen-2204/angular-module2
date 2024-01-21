@@ -1,79 +1,102 @@
-<div class="wrap-listUser">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="text-center">{{ "User Management" }}</h3>
-            <div class="row mt-3">
-              <div class="col-md-12 text-center">
-                <button class="btn-create">{{ "Add New User" }}</button>
+<section>
+  <div class="wrap-listUser">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="text-center">{{ "User Management" }}</h3>
+              <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                  <button class="btn-create" (click)="createUser()">{{ "Add New User" }}</button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-12">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Role</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngIf="allUsers.length === 0">
-                      <td class="nullData" colspan="4">{{"Không có dữ liệu"}}</td>
-                    </tr>
-                    <tr *ngFor="let user of allUsers">
-                      <td>{{ user.username }}</td>
-                      <td>{{ user.email }}</td>
-                      <td>{{ user.role }}</td>
-                      <td>
-                        <button
-                          class="btn btn-info btn-sm me-2"
-                          (click)="editUser(user.username)"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          class="btn btn-danger btn-sm"
-                          (click)="removeUser(user.username)"
-                        >
-                          Remove
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngIf="allUsers.length === 0">
+                        <td class="nullData" colspan="5">{{"Không có dữ liệu"}}</td>
+                      </tr>
+                      <tr *ngFor="let user of allUsers">
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>
+                          <button
+                            class="btn btn-info btn-sm me-2"
+                            (click)="editUser(user.id)"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            class="btn btn-danger btn-sm"
+                            (click)="removeUser(user.id)"
+                          >
+                            Remove
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-md-12">
-                <ul *ngIf="totalPages() > 1" class="pagination">
-                  <li class="page-item" *ngIf="currentPage > 1">
-                    <a class="page-link prev" (click)="setPage(currentPage - 1)" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-  
-                  <li class="page-item" *ngFor="let page of generateNumberArray(totalPages())" [class.active]="isActivePage(page)">
-                      <a class="page-link" (click)="setPage(page)">{{ page }}</a>
-                  </li>
-  
-                  <li class="page-item next" *ngIf="currentPage < totalPages()">
-                    <a class="page-link" (click)="setPage(currentPage + 1)" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
     </div>
+    <div *ngIf="visible" class="custom-modal-overlay">
+      <div class="custom-modal">
+        <div class="modal-header">
+          <span class="font-bold white-space-nowrap p-3">{{type === "add" ?"THÊM MỚI USER":"CHỈNH SỬA USER"}}</span>
+          <button class="close-btn" (click)="hideDialog()">X</button>
+        </div>
+        <div class="modal-content">
+          <form #f="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input id="username" name="username" type="text" [(ngModel)]="userForm.username" #username="ngModel" class="form-control">
+              <span class="text-danger" *ngIf="errorMessage.username !== ''">
+                {{ errorMessage.username }}
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" [(ngModel)]="userForm.password" #password="ngModel" class="form-control">
+              <span class="text-danger" *ngIf="errorMessage.password !== ''">
+                {{ errorMessage.password }}
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" [(ngModel)]="userForm.email" #email="ngModel" class="form-control">
+              <span class="text-danger" *ngIf="errorMessage.email !== ''">
+                {{ errorMessage.email }}
+              </span>
+            </div>
+            <!-- <div class="form-group">
+              <label for="role">Role</label>
+              <input id="role" name="role" type="text" [(ngModel)]="userForm.role" #role="ngModel" class="form-control">
+            </div> -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" (click)="submit=true">Add User</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>

@@ -5,15 +5,20 @@
         <header class="wrap-header-inner">
           <div class="wrap-header-inner_left">
             <ul>
-              <a>Ebooks</a>
-              <a>User</a>
-              <a>Pricing</a>
-              <a>FAQs</a>
-              <a>About</a>
+              <a routerLink="/dashboard/users" routerLinkActive="activeRouter"
+                >Users</a
+              >
+              <a routerLink="/dashboard/books" routerLinkActive="activeRouter"
+                >Ebooks</a
+              >
+              <a class="cart-link" routerLink="/dashboard/cart" routerLinkActive="activeRouter"
+                >Cart
+                <span>{{totalQuantity}}</span>
+                </a
+              >
             </ul>
           </div>
           <div class="wrap-header-inner_right">
-            <input placeholder="Tìm kiếm...." />
             <button class="logout-btn" (click)="logout()">Logout</button>
           </div>
         </header>

@@ -5,7 +5,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="text-center">{{ "User Management" }}</h3>
+              <h3 class="text-center">{{ "Users Management" }}</h3>
               <div class="row mt-3">
                 <div class="col-md-12 text-center">
                   <button class="btn-create" (click)="createUser()">{{ "Add New User" }}</button>
@@ -34,7 +34,7 @@
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.role }}</td>
-                        <td>
+                        <td class="wrap-action">
                           <button
                             class="btn btn-info btn-sm me-2"
                             (click)="editUser(user.id)"
@@ -92,7 +92,7 @@
               <input id="role" name="role" type="text" [(ngModel)]="userForm.role" #role="ngModel" class="form-control">
             </div> -->
             <div class="form-group">
-              <button type="submit" class="btn btn-primary" (click)="submit=true">Add User</button>
+              <button type="submit" class="btn btn-primary" (click)="submit=true">{{type === "add" ?"Add User":"Edit User"}}</button>
             </div>
           </form>
         </div>

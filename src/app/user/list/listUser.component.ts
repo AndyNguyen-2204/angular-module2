@@ -75,7 +75,7 @@ export class ListUsersComponent implements OnInit {
     this.authService.removeUser(id).subscribe({
       next: (data) => {
         if (data.success === true) {
-          alert('Thành công');
+          alert('Xóa user thành công');
         } else {
           alert(data.reason);
         }

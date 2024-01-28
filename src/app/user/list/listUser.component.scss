@@ -1,7 +1,7 @@
 .wrap-listUser{
 	width: 100%;
 	min-height: 100vh;
-	padding: 20px 0;
+	padding: 40px 0;
 	.container{
 		max-width: 1400px;
 		width: 100%;
@@ -128,5 +128,12 @@
 	  
 	  button:hover {
 		background-color: #0056b3;
+	  }
+	  .wrap-action{
+		display: flex;
+		gap: 10px;
+	  }
+	  .text-danger{
+		color: #ff0000;
 	  }
 }

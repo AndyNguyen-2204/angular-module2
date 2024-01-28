@@ -1,0 +1,62 @@
+<section>
+  <div class="wrap-content-cart">
+    <div class="container">
+      <div class="wrap-content-header">
+        <div>
+          <h3 class="text-center">{{ "Cart Management" }}</h3>
+        </div>
+      </div>
+      <div class="wrap-content-cart_content">
+        <div [ngClass]="{ 'wrap-all-content-cart': cart.length > 0 }">
+          <div *ngIf="cart.length === 0" class="nullDataBooks">
+            <h1>Không có dữ liệu</h1>
+          </div>
+          <div *ngFor="let book of cart" class="wrap-book-content">
+            <div class="wrap-book-content_inner">
+              <div class="image-book">
+                <img src="{{ book.cover_image }}" />
+              </div>
+              <div class="content-book">
+                <a
+                  [routerLink]="['/dashboard/books/', book.id]"
+                  class="nameBook"
+                  >{{ book.title }}</a
+                >
+                <span class="authorBook"
+                  >Tác giả: <b>{{ book.author }}</b></span
+                >
+                <span
+                  >Giá:
+                  <b>{{ book.price }}</b>
+                </span>
+                <span
+                  >Còn lại:<b>{{ book.quantity_available }}</b></span
+                >
+              </div>
+              <div class="wrap-book-content_bottom">
+                <button
+              class="btn-changeQuantity"
+              (click)="handleMinus()"
+            >
+              -
+            </button>
+            <input [(ngModel)]="book.quantity" />
+            <button
+              class="btn-changeQuantity"
+              (click)="handlePlus()"
+              [disabled]="book.quantity >= book.quantity_available"
+            >
+              +
+            </button>
+              </div>
+              <div class="wrap-total-amount">
+                <h4>Tổng tiền:</h4>
+                <b>{{book.quantity * book.price}}đ</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

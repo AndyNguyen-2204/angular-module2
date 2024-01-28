@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Tuyến đường mặc định
@@ -11,11 +12,22 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       {
-        path: 'user',
-        loadChildren: () => import('./user/user.module').then((m) => m.UserModule)
-      }
-    ]
-  }
+        path: 'users',
+        loadChildren: () =>
+          import('./user/user.module').then((m) => m.UserModule),
+      },
+      {
+        path: 'books',
+        loadChildren: () =>
+          import('./books/books.module').then((m) => m.BooksModule),
+      },
+      {
+        path: 'cart',
+        loadChildren: () =>
+          import('./cart/cart.module').then((m) => m.CartModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({

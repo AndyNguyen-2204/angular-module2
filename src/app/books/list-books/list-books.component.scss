@@ -1,0 +1,153 @@
+.wrap-content-books {
+  .container {
+    max-width: 1400px;
+    width: 100%;
+    margin: auto;
+    .wrap-content-header {
+      margin-top: 40px;
+      h3 {
+        margin: 0;
+        text-transform: capitalize;
+        font-size: 25px;
+        font-weight: 600;
+        text-align: center;
+      }
+      &_content {
+        display: flex;
+        background-color: #3498db;
+        padding: 20px;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        margin-top: 20px;
+        align-items: center;
+        gap: 60px;
+        justify-content: space-between;
+        input {
+          padding: 10px;
+          min-width: 400px;
+          border: 0;
+          border-radius: 5px;
+          &:focus {
+            outline: none;
+          }
+        }
+        &-wrapDropdown {
+          display: flex;
+          gap: 60px;
+          .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+          }
+
+          .dropdown-toggle {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            width: 100%;
+            text-wrap: nowrap;
+          }
+
+          .dropdown-menu {
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            width: 100%;
+          }
+
+          .dropdown-menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+          }
+
+          .dropdown-menu a:hover {
+            background-color: #f1f1f1;
+          }
+          .dropdown-menu {
+            display: none;
+          }
+
+          .dropdown-menu.show {
+            display: block;
+          }
+          .dropdown-item {
+            cursor: pointer;
+            font-size: 13.3333px;
+            color: #000000;
+          }
+          .dropdownActive{
+            background-color: aquamarine;
+            color: #d70f0f !important;
+          }
+        }
+      }
+    }
+    .wrap-content-books-content {
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      padding: 20px;
+    }
+    .nullDataBooks {
+      min-height: 400px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .wrap-all-content-books {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 cột có kích thước bằng nhau */
+      grid-gap: 30px;
+      width: 100%;
+      .wrap-book-content {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+          rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        padding: 20px;
+        text-align: center;
+        img {
+          height: 270px;
+          width: 100%;
+          object-fit: cover;
+        }
+        .nameBook {
+          font-size: 17px;
+          font-weight: 600;
+          text-decoration: none;
+          color: black;
+          margin-top: 20px;
+          display: block;
+          min-height: 40px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2; /* Số dòng tối đa */
+          -webkit-box-orient: vertical;
+          &:hover {
+            cursor: pointer;
+            color: blue;
+          }
+        }
+        .authorBook {
+          font-size: 15px;
+          font-weight: 500;
+          margin-top: 20px;
+          display: block;
+        }
+        &_bottom {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 20px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+<section>
+  <div class="wrap-content-books">
+    <div class="container">
+      <div class="wrap-content-header">
+        <div>
+          <h3 class="text-center">{{ "Books Management" }}</h3>
+        </div>
+        <div class="wrap-content-header_content">
+          <div>
+            <input
+              placeholder="Search book...."
+              [(ngModel)]="valueInput"
+              (ngModelChange)="searchBook()"
+            />
+          </div>
+          <div class="wrap-content-header_content-wrapDropdown">
+            <div class="dropdown">
+              <button
+                class="dropdown-toggle"
+                type="button"
+                (click)="toggleDropdown('dropdown1')"
+              >
+                {{
+                  chooseTypeBook?.title
+                    ? chooseTypeBook.title
+                    : "Chọn loại sách"
+                }}
+              </button>
+              <div class="dropdown-menu" [ngClass]="{ show: isDropdown1Open }">
+                <a
+                  *ngFor="let value of valueDropdown1"
+                  class="dropdown-item"
+                  [ngClass]="{
+                    dropdownActive: chooseTypeBook.title === value.title
+                  }"
+                  (click)="selectOption(value, 'dropdown1')"
+                  >{{ value.title }}</a
+                >
+              </div>
+            </div>
+
+            <!-- <div class="dropdown">
+              <button
+                class="dropdown-toggle"
+                type="button"
+                (click)="toggleDropdown('dropdown2')"
+              >
+                Xắp xếp
+              </button>
+              <div class="dropdown-menu" [ngClass]="{ show: isDropdown2Open }">
+                <a
+                  class="dropdown-item"
+                  (click)="selectOption('Option A', 'dropdown2')"
+                  >Option A</a
+                >
+                <a
+                  class="dropdown-item"
+                  (click)="selectOption('Option B', 'dropdown2')"
+                  >Option B</a
+                >
+                <a
+                  class="dropdown-item"
+                  (click)="selectOption('Option C', 'dropdown2')"
+                  >Option C</a
+                >
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="wrap-content-books-content">
+        <div [ngClass]="{ 'wrap-all-content-books': allBooks.length > 0 }">
+          <div *ngIf="allBooks.length === 0" class="nullDataBooks">
+            <h1>Không có dữ liệu</h1>
+          </div>
+          <div *ngFor="let book of allBooks" class="wrap-book-content">
+            <div>
+              <img src="{{ book.cover_image }}" />
+              <a
+                [routerLink]="['/dashboard/books/', book.id]"
+                class="nameBook"
+                >{{ book.title }}</a
+              >
+              <span class="authorBook">{{ book.author }}</span>
+              <div class="wrap-book-content_bottom">
+                <b>{{ book.price }}đ</b>
+                <span
+                  >Còn lại:<b>{{ book.quantity_available }}</b></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

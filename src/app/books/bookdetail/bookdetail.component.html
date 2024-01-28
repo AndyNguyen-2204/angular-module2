@@ -1,0 +1,64 @@
+<section>
+  <div class="wrap-book-detail">
+    <div class="container">
+      <div class="wrap-content-header">
+        <div>
+          <h3 class="text-center">{{ "Book Detail" }}</h3>
+        </div>
+      </div>
+      <div class="wrap-content-bookDetail-content">
+        <div class="wrap-image">
+          <img src="{{ dataBookDetail?.cover_image }}" />
+        </div>
+        <div class="wrap-content-right">
+          <h3>{{ dataBookDetail?.title }}</h3>
+          <p><b>Mô tả:</b> {{ dataBookDetail.description }}</p>
+          <p><b>Tác giả:</b> {{ dataBookDetail.author }}</p>
+          <p><b>Thể loại:</b> {{ dataBookDetail.genre.title }}</p>
+          <p><b>Năm xuất bản:</b> {{ dataBookDetail.publication_year }}</p>
+          <p><b>Đánh giá:</b> {{ dataBookDetail.rating }}</p>
+          <p><b>Giá tiền:</b> {{ dataBookDetail.price }}đ</p>
+          <p>
+            <b>Số lượng còn lại:</b> {{ dataBookDetail.quantity_available }}
+          </p>
+          <div class="wrap-content-bottom">
+            <button
+              class="btn-changeQuantity"
+              (click)="handleMinus()"
+              [disabled]="quantity === 1"
+            >
+              -
+            </button>
+            <input [(ngModel)]="quantity" />
+            <button
+              class="btn-changeQuantity"
+              (click)="handlePlus()"
+              [disabled]="quantity >= dataBookDetail.quantity_available"
+            >
+              +
+            </button>
+            <button
+              class="btn-addToCart"
+              [disabled]="quantity > dataBookDetail.quantity_available"
+              (click)="addToCart()"
+            >
+              Add to cart
+            </button>
+          </div>
+          <p
+            class="limitProduct"
+            *ngIf="quantity === dataBookDetail.quantity_available"
+          >
+            Đã đạt tới số lượng sản phẩm tối đa còn lại trong kho hàng
+          </p>
+          <p
+            class="limitProduct"
+            *ngIf="quantity > dataBookDetail.quantity_available"
+          >
+            Đã vượt quá số lượng sản phẩm tối đa còn lại trong kho hàng
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

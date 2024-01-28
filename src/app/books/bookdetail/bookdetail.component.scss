@@ -1,0 +1,72 @@
+.wrap-book-detail {
+  .container {
+    max-width: 1400px;
+    width: 100%;
+    margin: auto;
+    .wrap-content-header {
+      margin-top: 40px;
+      h3 {
+        margin: 0;
+        text-transform: capitalize;
+        font-size: 25px;
+        font-weight: 600;
+        text-align: center;
+      }
+    }
+    .wrap-content-bookDetail-content {
+      width: 100%;
+      margin-top: 40px;
+      background-color: #ffffff;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      padding: 20px;
+      min-height: 400px;
+      display: flex;
+      flex: 1;
+      gap: 30px;
+      .wrap-image {
+        flex: 1;
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+      .wrap-content-right {
+        flex: 1;
+        h3 {
+          text-align: center;
+        }
+        .wrap-content-bottom {
+          display: flex;
+          gap: 10px;
+          .btn-changeQuantity {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+          }
+          input {
+            width: 50px;
+            text-align: center;
+            padding: 5px;
+            &:focus {
+              outline: none;
+            }
+          }
+          .btn-addToCart {
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 1px solid;
+            cursor: pointer;
+          }
+        }
+        .limitProduct {
+          color: red;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 150%;
+        }
+      }
+    }
+  }
+}

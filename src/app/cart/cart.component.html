@@ -36,14 +36,14 @@
               <div class="wrap-book-content_bottom">
                 <button
               class="btn-changeQuantity"
-              (click)="handleMinus()"
+              (click)="handleMinus(book)"
             >
               -
             </button>
             <input [(ngModel)]="book.quantity" />
             <button
               class="btn-changeQuantity"
-              (click)="handlePlus()"
+              (click)="handlePlus(book)"
               [disabled]="book.quantity >= book.quantity_available"
             >
               +
@@ -54,6 +54,10 @@
                 <b>{{book.quantity * book.price}}đ</b>
               </div>
             </div>
+          </div>
+          <div *ngIf="cart.length > 0" class="sum-total-amount-cart">
+              <b>Tổng tiền:</b>
+              <span>{{ totalPrice}}đ</span>
           </div>
         </div>
       </div>

@@ -82,6 +82,26 @@
           }
         }
       }
+      .sum-total-amount-cart{
+        margin-top: 20px;
+        border-top: 2px dashed gray;
+        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 10px;
+        padding: 15px;
+        b{
+          font-size: 25px;
+          font-weight: 600;
+          line-height: 150%;
+        }
+        span{
+          font-size: 25px;
+          font-weight: 600;
+          line-height: 150%;
+        }
+      }
     }
     .nullDataBooks {
       min-height: 400px;

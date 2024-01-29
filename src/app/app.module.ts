@@ -12,6 +12,7 @@ import { UserService } from './shared/component/auth/user.service';
 import { AuthService } from './services/auth.service';
 import { BookService } from './shared/component/auth/book.service';
 import { CartService } from './shared/component/auth/cart.service';
+import { CartModule } from './cart/cart.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { CartService } from './shared/component/auth/cart.service';
     DashboardComponent,
   ],
   imports: [BrowserModule, AppRouter, FormsModule, HttpClientModule],
-  providers: [UserService,AuthService,BookService,CartService],
+  providers: [UserService,AuthService,BookService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 import { BookType } from './type/book';
 
-@Injectable({
-  providedIn: 'root',
-})
 export class CartService {
   private cart: BookType[] = [];
-  private cartSubject = new Subject<BookType[]>();
+  private cartSubject = new BehaviorSubject<BookType[]>([]);
   private cartSercive = this.cartSubject.asObservable();
 
   constructor() {}

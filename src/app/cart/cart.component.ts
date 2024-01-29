@@ -30,17 +30,47 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   handleMinus(book: BookType) {
-    // Xử lý giảm số lượng sản phẩm
-    this.cartService.handleMinus(book);
+    this.cartService.handleMinus(book).subscribe({
+      next: (data) => {
+        if (data.status === true) {
+          alert(data.text)
+        } else {
+          alert(data.text);
+        }
+      },
+      error: (error) => {
+        alert(error.message);
+      },
+    });
   }
 
   handlePlus(book: BookType) {
-    // Xử lý tăng số lượng sản phẩm
-    this.cartService.handlePlus(book);
+    this.cartService.handlePlus(book).subscribe({
+      next: (data) => {
+        if (data.status === true) {
+          alert(data.text)
+        } else {
+          alert(data.text);
+        }
+      },
+      error: (error) => {
+        alert(error.message);
+      },
+    });
   }
 
   removeItem(book: BookType) {
-    // Xử lý xóa sản phẩm khỏi giỏ hàng
-    this.cartService.removeItemFromCart(book);
+    this.cartService.removeItemFromCart(book).subscribe({
+      next: (data) => {
+        if (data.status === true) {
+          alert(data.text)
+        } else {
+          alert(data.text);
+        }
+      },
+      error: (error) => {
+        alert(error.message);
+      },
+    });
   }
 }

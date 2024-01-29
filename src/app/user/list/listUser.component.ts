@@ -44,6 +44,7 @@ export class ListUsersComponent implements OnInit {
           if (data.success === true) {
             this.reloadList();
             this.hideDialog();
+            this.errorMessage={ username: '', password: '', email: '' }
             alert('Thêm mới user thành công!');
           } else {
             alert(data.reason);
@@ -59,6 +60,7 @@ export class ListUsersComponent implements OnInit {
           if (data.success === true) {
             this.reloadList();
             this.hideDialog();
+            this.errorMessage={ username: '', password: '', email: '' }
             alert('Chỉnh sửa user thành công!');
           } else {
             alert(data.reason);

@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog'; // Import DialogModule
 import { TableModule } from 'primeng/table'; // Import TableModule
 import { CartComponent } from './cart.component';
+import { SharedModule } from '../shared/component/shared.module';
 const routes: Routes = [
   {
     path: '',
@@ -23,6 +24,7 @@ const routes: Routes = [
     FormsModule,
     DialogModule, // Add DialogModule here
     TableModule,
+    SharedModule
   ],
   providers: [],
 })

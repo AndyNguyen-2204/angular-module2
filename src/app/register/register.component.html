@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col login-sec">
-        <h2 class="text-title">Welcome to website</h2>
+        <h2 class="text-title">Register an account</h2>
         <form
           class="login-form"
           action=""
@@ -46,18 +46,36 @@
               {{ errorMessage.password }}
             </span>
           </div>
-          <div class="register" routerLink="/register">
-            <a>Bạn có muốn đăng ký?</a>
+          <div class="form-group">
+            <input
+              class="form-control form__input"
+              type="password"
+              name="confirmPass"
+              placeholder="confirm-password"
+              id="confirmPass"
+              [(ngModel)]="formdata.confirmPass"
+              #password="ngModel"
+              required
+            />
+            <label for="password" class="text-uppercase form__label"
+              >Confirm Password</label
+            >
+            <span class="text-danger" *ngIf="errorMessage.confirmPass !== ''">
+              {{ errorMessage.confirmPass }}
+            </span>
+          </div>
+          <div class="register" routerLink="/login">
+            <a>Trở lại đăng nhập?</a>
           </div>
           <div class="form-group">
             <input
               type="submit"
               class="btn-login"
-              value="Login"
+              value="Register"
               (click)="submit = true"
             />
-            <span class="text-danger" *ngIf="loginMessageError !== ''">
-              {{ loginMessageError }}
+            <span class="text-danger" *ngIf="registerMessageError !== ''">
+              {{ registerMessageError }}
             </span>
           </div>
         </form>

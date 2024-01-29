@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   totalQuantity: number = 0;
-  user: User = { id: 0, userName: '', email: '', phone: '' };
+  user: User = { id: '', username: '', email: '', phone: '', password: '' };
   private cartSubscription!: Subscription;
 
   constructor(private auth: AuthService, private cartService: CartService) {}
@@ -26,10 +26,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     // Đăng ký subscriber để lắng nghe sự kiện thay đổi của giỏ hàng
-    this.cartSubscription = this.cartService.getCart().subscribe((cart: BookType[]) => {
-      this.totalQuantity = cart.reduce((acc, book) => acc + (book.quantity || 0), 0);
-      console.log(cart)
-    });
+    this.cartSubscription = this.cartService
+      .getCart()
+      .subscribe((cart: BookType[]) => {
+        this.totalQuantity = cart.reduce(
+          (acc, book) => acc + (book.quantity || 0),
+          0
+        );
+        console.log(cart);
+      });
   }
 
   ngOnDestroy(): void {

@@ -155,18 +155,23 @@ export class BookService {
     }
   }
   filterBook(keyword: string, valueFilter: string) {
-    console.log(keyword,valueFilter)
+    console.log(keyword, valueFilter);
     const keywordWithoutDiacritics = this.removeDiacritics(
       keyword.toLowerCase()
     );
-    if (valueFilter === 'ALL' && keyword.trim()==="") {
-      return this.demoBooks
-    } else if(valueFilter !== 'ALL' && keyword.trim()===""){
+    if (valueFilter === 'ALL' && keyword.trim() === '') {
+      return this.demoBooks;
+    } else if (valueFilter !== 'ALL' && keyword.trim() === '') {
       return this.demoBooks.filter(
-        (book: BookType) =>
-           book.genre.type === valueFilter
+        (book: BookType) => book.genre.type === valueFilter
       );
-    }else {
+    } else if (valueFilter === 'ALL' && keyword.trim() !== '') {
+      return this.demoBooks.filter((book: BookType) =>
+        this.removeDiacritics(book.title.toLowerCase()).includes(
+          keywordWithoutDiacritics
+        )
+      );
+    } else {
       return this.demoBooks.filter(
         (book: BookType) =>
           this.removeDiacritics(book.title.toLowerCase()).includes(

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../shared/component/auth/type/user';
 import { UserService } from '../../shared/component/auth/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'listUsersComponent',
@@ -22,7 +23,7 @@ export class ListUsersComponent implements OnInit {
     id: '',
   };
 
-  constructor(private authService: UserService) {
+  constructor(private authService: UserService, private toastr: ToastrService) {
     this.reloadList();
   }
 
@@ -44,14 +45,14 @@ export class ListUsersComponent implements OnInit {
           if (data.success === true) {
             this.reloadList();
             this.hideDialog();
-            this.errorMessage={ username: '', password: '', email: '' }
-            alert('Thêm mới user thành công!');
+            this.errorMessage = { username: '', password: '', email: '' };
+            this.toastr.success(' Thành công!', `Thêm mới user thành công!`);
           } else {
-            alert(data.reason);
+            this.toastr.error(' Không thành công!', `${data.reason}`);
           }
         },
         error: (error) => {
-          alert(error.message);
+          this.toastr.error(' Không thành công!', `${error}`);
         },
       });
     } else if (this.type === 'edit') {
@@ -60,14 +61,14 @@ export class ListUsersComponent implements OnInit {
           if (data.success === true) {
             this.reloadList();
             this.hideDialog();
-            this.errorMessage={ username: '', password: '', email: '' }
-            alert('Chỉnh sửa user thành công!');
+            this.errorMessage = { username: '', password: '', email: '' };
+            this.toastr.success(' Thành công!', `Chỉnh sửa user thành công!`);
           } else {
-            alert(data.reason);
+            this.toastr.error(' Không thành công!', `${data.reason}`);
           }
         },
         error: (error) => {
-          alert(error.message);
+          this.toastr.error(' Không thành công!', `${error}`);
         },
       });
     }
@@ -77,13 +78,13 @@ export class ListUsersComponent implements OnInit {
     this.authService.removeUser(id).subscribe({
       next: (data) => {
         if (data.success === true) {
-          alert('Xóa user thành công');
+          this.toastr.success(' Thành công!', `Xóa user thành công!`);
         } else {
-          alert(data.reason);
+          this.toastr.error(' Không thành công!', `${data.reason}`);
         }
       },
       error: (error) => {
-        alert(error.message);
+        this.toastr.error(' Không thành công!', `${error}`);
       },
     });
   }
@@ -105,7 +106,7 @@ export class ListUsersComponent implements OnInit {
       this.userForm = findUser;
       this.showDialog();
     } else {
-      alert('User không tồn tại!');
+      this.toastr.error(' Không thành công!', `User không tồn tại!`);
     }
   }
   hideDialog() {

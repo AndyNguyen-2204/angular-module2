@@ -63,7 +63,7 @@ export class AuthService {
   }
   register(username: string, password: string): Observable<{status:boolean,text:string}> {
     const userLogin = this.users.find(
-      (user) => user.username === username && user.password === password
+      (user) => user.username === username
     );
     if (userLogin) {
       return of({

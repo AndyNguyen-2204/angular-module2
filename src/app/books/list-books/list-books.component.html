@@ -83,7 +83,7 @@
               >
               <span class="authorBook">{{ book.author }}</span>
               <div class="wrap-book-content_bottom">
-                <b>{{ book.price }}đ</b>
+                <b>{{ book.price | currency : "VND" : "symbol" : "1.0-0" }}</b>
                 <span
                   >Còn lại:<b>{{ book.quantity_available }}</b></span
                 >

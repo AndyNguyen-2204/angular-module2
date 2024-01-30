@@ -15,6 +15,8 @@ import { CartService } from './shared/component/auth/cart.service';
 import { RegisterComponent } from './register/register.component';
 import { SharedModule } from './shared/component/shared.module';
 import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,7 @@ import { ToastrModule } from 'ngx-toastr';
     DashboardComponent,
     RegisterComponent
   ],
-  imports: [BrowserModule, AppRouter, FormsModule, HttpClientModule,SharedModule,ToastrModule.forRoot(),],
+  imports: [BrowserModule, AppRouter, FormsModule, HttpClientModule,SharedModule,ToastrModule.forRoot(),BrowserAnimationsModule,CommonModule],
   providers: [UserService,AuthService,BookService,CartService],
   bootstrap: [AppComponent],
 })

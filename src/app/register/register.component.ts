@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ export class RegisterComponent implements OnInit {
   submit = false;
   errorMessage = { username: '', password: '', confirmPass: '' };
   registerMessageError = '';
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.auth.canAuthenticate();
@@ -36,14 +37,13 @@ export class RegisterComponent implements OnInit {
             next: (data) => {
               if(data.status===true){
                 this.formdata={ username: '', password: '', confirmPass: '' }
-                alert(data.text)
+                this.toastr.success(' Thành công!', `${data.text}`);
               }else{
-                alert(data.text)
+                this.toastr.error(' Không thành công!', `${data.text}`);
               }
             },
             error: (error) => {
-              console.log(error);
-              this.registerMessageError = error;
+              this.toastr.error(' Không thành công!', `${error}`);
             },
           })
           .add(() => {

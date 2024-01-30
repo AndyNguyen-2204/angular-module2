@@ -33,7 +33,7 @@
                   >
                   <span
                     >Giá:
-                    <b>{{ book.price }}</b>
+                    <b>{{ book.price | currency : "VND" : "symbol" : "1.0-0" }}</b>
                   </span>
                   <span
                     >Còn lại:<b>{{ book.quantity_available }}</b></span
@@ -57,7 +57,7 @@
                 </div>
                 <div class="wrap-total-amount">
                   <h4>Tổng tiền:</h4>
-                  <b>{{book.quantity * book.price}}đ</b>
+                  <b>{{book.quantity * book.price | currency : "VND" : "symbol" : "1.0-0"}}</b>
                 </div>
                 <button class="button-delete"
                 (click)="removeItem(book)">
@@ -68,7 +68,7 @@
            </div>
           <div *ngIf="cart.length > 0" class="sum-total-amount-cart">
               <b>Tổng tiền:</b>
-              <span>{{ totalPrice}}đ</span>
+              <span>{{ totalPrice | currency : "VND" : "symbol" : "1.0-0"}}</span>
           </div>
         </div>
       </div>

@@ -33,7 +33,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
           (acc, book) => acc + (book.quantity || 0),
           0
         );
-        console.log(cart);
       });
   }
 

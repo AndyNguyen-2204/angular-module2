@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from '../shared/component/auth/cart.service';
 import { BookType } from '../shared/component/auth/type/book';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart',
@@ -13,12 +14,11 @@ export class CartComponent implements OnInit, OnDestroy {
   totalPrice: number = 0;
   private cartSubscription!: Subscription;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService,private toastr: ToastrService) {}
 
   ngOnInit() {
     this.cartSubscription = this.cartService.getCart().subscribe((cart: BookType[]) => {
       this.cart = cart;
-      console.log(cart)
       this.totalPrice = this.cartService.getTotalPrice(); // Tính lại tổng tiền mỗi khi giỏ hàng thay đổi
     });
   }
@@ -33,13 +33,13 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.handleMinus(book).subscribe({
       next: (data) => {
         if (data.status === true) {
-          alert(data.text)
+          this.toastr.success(' Thành công!', `${data.text}`);
         } else {
-          alert(data.text);
+          this.toastr.error(' Không thành công!', `${data.text}`);
         }
       },
       error: (error) => {
-        alert(error.message);
+        this.toastr.error(' Không thành công!', `${error}`);
       },
     });
   }
@@ -48,13 +48,13 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.handlePlus(book).subscribe({
       next: (data) => {
         if (data.status === true) {
-          alert(data.text)
+          this.toastr.success(' Thành công!', `${data.text}`);
         } else {
-          alert(data.text);
+          this.toastr.error(' Không thành công!', `${data.text}`);
         }
       },
       error: (error) => {
-        alert(error.message);
+        this.toastr.error(' Không thành công!', `${error}`);
       },
     });
   }
@@ -63,13 +63,13 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.removeItemFromCart(book).subscribe({
       next: (data) => {
         if (data.status === true) {
-          alert(data.text)
+          this.toastr.success(' Thành công!', `${data.text}`);
         } else {
-          alert(data.text);
+          this.toastr.error(' Không thành công!', `${data.text}`);
         }
       },
       error: (error) => {
-        alert(error.message);
+        this.toastr.error(' Không thành công!', `${error}`);
       },
     });
   }
@@ -77,13 +77,13 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.clearCart().subscribe({
       next: (data) => {
         if (data.status === true) {
-          alert(data.text)
+          this.toastr.success(' Thành công!', `${data.text}`);
         } else {
-          alert(data.text);
+          this.toastr.error(' Không thành công!', `${data.text}`);
         }
       },
       error: (error) => {
-        alert(error.message);
+        this.toastr.error(' Không thành công!', `${error}`);
       },
     });
   }

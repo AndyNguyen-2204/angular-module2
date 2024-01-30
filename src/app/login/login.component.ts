@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   submit = false;
   errorMessage = { username: '', password: '' };
   loginMessageError = '';
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.auth.canAuthenticate();
@@ -34,12 +35,10 @@ export class LoginComponent implements OnInit {
               this.auth.canAuthenticate();
             },
             error: (error) => {
-              console.log(error);
-              this.loginMessageError = error;
+              this.toastr.error(' Không thành công!', `${error}`);
             },
           })
           .add(() => {
-            console.log('login process completed!');
           });
     }
   }

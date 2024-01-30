@@ -92,4 +92,12 @@ export class CartService {
       return of({ status: false, text: 'Không có sản phẩm có id trùng khớp!' });
     }
   }
+  clearCart(): Observable<{ status: boolean; text: string }> {
+    this.cart=[];
+    this.cartSubject.next([...this.cart]);
+    return of({
+      status: true,
+      text: 'Xóa hết sản phẩm trong giỏ hàng thành công!',
+    });
+  }
 }

@@ -11,12 +11,15 @@ export class ListBooksComponent implements OnInit {
   allBooks: BookType[] = [];
   isDropdown1Open: boolean = false;
   isDropdown2Open: boolean = false;
-  valueInput: string = '';
+  valueInput: string = "";
   valueDropdown1 = valueDropdown1;
-  chooseTypeBook: {
-    title?: string;
-    type?: string;
-  } = {};
+  public chooseTypeBook: {
+    title: string;
+    type: string;
+  } = {
+    title:"",
+    type:""
+  };
   constructor(private bookService: BookService) {}
   ngOnInit() {
     this.getBooks();
@@ -37,12 +40,13 @@ export class ListBooksComponent implements OnInit {
   selectOption(option: { title: string; type: string }, dropdown: string) {
     if (dropdown === 'dropdown1') {
       this.isDropdown1Open = false;
+      this.allBooks=this.bookService.filterBook(this.valueInput,option.type)
       this.chooseTypeBook = option;
     } else if (dropdown === 'dropdown2') {
       this.isDropdown2Open = false;
     }
   }
   searchBook() {
-    this.allBooks = this.bookService.searchBook(this.valueInput);
+    this.allBooks = this.bookService.searchBook(this.valueInput,this.chooseTypeBook.type);
   }
 }

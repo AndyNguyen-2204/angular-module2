@@ -3,6 +3,7 @@ import { BookService } from '../../shared/component/auth/book.service';
 import { ActivatedRoute } from '@angular/router';
 import { BookType } from '../../shared/component/auth/type/book';
 import { CartService } from '../../shared/component/auth/cart.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-bookdetail',
   templateUrl: './bookdetail.component.html',
@@ -23,14 +24,15 @@ export class BookdetailComponent implements OnInit {
     description: '',
     publication_year: 0,
     rating: 0,
-    quantity:0
+    quantity: 0,
     // Các thuộc tính khác của đối tượng BookType
   };
   quantity: number = 1;
   constructor(
     private bookService: BookService,
     private route: ActivatedRoute,
-    private cartService:CartService
+    private cartService: CartService,
+    private toastr: ToastrService
   ) {}
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -39,7 +41,7 @@ export class BookdetailComponent implements OnInit {
         // Call your function with the ID here
         this.getBookDetail(id);
       } else {
-        alert('Id book không tồn tại!');
+        this.toastr.error(' Không thành công!', `Id book không tồn tại!`);
       }
     });
   }
@@ -49,35 +51,36 @@ export class BookdetailComponent implements OnInit {
         if (data.status === true && data.data) {
           this.dataBookDetail = data?.data;
         } else {
-          alert(data.text);
+          this.toastr.error(' Không thành công!', `${data.text}`);
         }
       },
       error: (error) => {
-        alert(error.message);
+        this.toastr.error(' Không thành công!', `${error.message}`);
       },
     });
   }
-  handleMinus(){
-    this.quantity -= 1
+  handleMinus() {
+    this.quantity -= 1;
   }
-  handlePlus(){
-    this.quantity += 1
+  handlePlus() {
+    this.quantity += 1;
   }
-  addToCart(){
-    const book={
+  addToCart() {
+    const book = {
       ...this.dataBookDetail,
-      quantity:this.quantity
-    }
+      quantity: this.quantity,
+    };
     this.cartService.addToCart(book).subscribe({
       next: (data) => {
         if (data.status === true) {
-          alert(data.text)
+          this.toastr.success('Thành công!', `${data.text}`);
         } else {
           alert(data.text);
+          this.toastr.error(' Không thành công!', `${data.text}`);
         }
       },
       error: (error) => {
-        alert(error.message);
+        this.toastr.error(' Không thành công!', `${error.message}`);
       },
     });
   }

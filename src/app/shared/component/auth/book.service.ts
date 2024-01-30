@@ -17,7 +17,7 @@ const fakeData = [
     },
     publication_year: 2021,
     rating: 5,
-    quantity:0
+    quantity: 0,
   },
   {
     id: '62ff7f3f1b28bcddbf7429ec',
@@ -35,7 +35,7 @@ const fakeData = [
     },
     publication_year: 2019,
     rating: 4.0,
-    quantity:0
+    quantity: 0,
   },
   {
     id: '65vvdf3f1b569gcdbf647dd',
@@ -53,7 +53,7 @@ const fakeData = [
     },
     publication_year: 2021,
     rating: 4.2,
-    quantity:0
+    quantity: 0,
   },
   {
     id: '61ff7f3f1b28e20dbf7435a5',
@@ -71,7 +71,7 @@ const fakeData = [
     },
     publication_year: 2023,
     rating: 3.9,
-    quantity:0
+    quantity: 0,
   },
   {
     id: '6cc7f4g155hcl0dbf7435a4',
@@ -89,7 +89,7 @@ const fakeData = [
     },
     publication_year: 2016,
     rating: 4.2,
-    quantity:0
+    quantity: 0,
   },
 ];
 
@@ -109,7 +109,7 @@ export class BookService {
     description: '',
     publication_year: 0,
     rating: 0,
-    quantity:0
+    quantity: 0,
     // Các thuộc tính khác của đối tượng BookType
   };
   constructor() {
@@ -132,18 +132,48 @@ export class BookService {
       data: book,
     });
   }
-  searchBook(keyword: string) {
+  searchBook(keyword: string, valueFilter: string) {
     if (!keyword.trim()) {
       return this.demoBooks;
     }
     const keywordWithoutDiacritics = this.removeDiacritics(
       keyword.toLowerCase()
     );
-    return this.demoBooks.filter((book: BookType) =>
-      this.removeDiacritics(book.title.toLowerCase()).includes(
-        keywordWithoutDiacritics
-      )
+    if (valueFilter === '' || valueFilter === 'ALL') {
+      return this.demoBooks.filter((book: BookType) =>
+        this.removeDiacritics(book.title.toLowerCase()).includes(
+          keywordWithoutDiacritics
+        )
+      );
+    } else {
+      return this.demoBooks.filter(
+        (book: BookType) =>
+          this.removeDiacritics(book.title.toLowerCase()).includes(
+            keywordWithoutDiacritics
+          ) && book.genre.type === valueFilter
+      );
+    }
+  }
+  filterBook(keyword: string, valueFilter: string) {
+    console.log(keyword,valueFilter)
+    const keywordWithoutDiacritics = this.removeDiacritics(
+      keyword.toLowerCase()
     );
+    if (valueFilter === 'ALL' && keyword.trim()==="") {
+      return this.demoBooks
+    } else if(valueFilter !== 'ALL' && keyword.trim()===""){
+      return this.demoBooks.filter(
+        (book: BookType) =>
+           book.genre.type === valueFilter
+      );
+    }else {
+      return this.demoBooks.filter(
+        (book: BookType) =>
+          this.removeDiacritics(book.title.toLowerCase()).includes(
+            keywordWithoutDiacritics
+          ) && book.genre.type === valueFilter
+      );
+    }
   }
   //removeDiacritics
   removeDiacritics(str: string): string {

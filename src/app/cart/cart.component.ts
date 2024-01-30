@@ -73,4 +73,18 @@ export class CartComponent implements OnInit, OnDestroy {
       },
     });
   }
+  clearCart() {
+    this.cartService.clearCart().subscribe({
+      next: (data) => {
+        if (data.status === true) {
+          alert(data.text)
+        } else {
+          alert(data.text);
+        }
+      },
+      error: (error) => {
+        alert(error.message);
+      },
+    });
+  }
 }

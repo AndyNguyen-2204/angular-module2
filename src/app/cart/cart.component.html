@@ -11,50 +11,61 @@
           <div *ngIf="cart.length === 0" class="nullDataBooks">
             <h1>Không có dữ liệu</h1>
           </div>
-          <div *ngFor="let book of cart" class="wrap-book-content">
-            <div class="wrap-book-content_inner">
-              <div class="image-book">
-                <img src="{{ book.cover_image }}" />
-              </div>
-              <div class="content-book">
-                <a
-                  [routerLink]="['/dashboard/books/', book.id]"
-                  class="nameBook"
-                  >{{ book.title }}</a
-                >
-                <span class="authorBook"
-                  >Tác giả: <b>{{ book.author }}</b></span
-                >
-                <span
-                  >Giá:
-                  <b>{{ book.price }}</b>
-                </span>
-                <span
-                  >Còn lại:<b>{{ book.quantity_available }}</b></span
-                >
-              </div>
-              <div class="wrap-book-content_bottom">
-                <button
-              class="btn-changeQuantity"
-              (click)="handleMinus(book)"
-            >
-              -
+           <div *ngIf="cart.length > 0">
+           <div class="wrap-btn-clearCart">
+            <button (click)="clearCart()" class="btn-clear-Cart">
+              Clear Cart
             </button>
-            <input [(ngModel)]="book.quantity" />
-            <button
-              class="btn-changeQuantity"
-              (click)="handlePlus(book)"
-              [disabled]="book.quantity >= book.quantity_available"
-            >
-              +
-            </button>
-              </div>
-              <div class="wrap-total-amount">
-                <h4>Tổng tiền:</h4>
-                <b>{{book.quantity * book.price}}đ</b>
+           </div>
+            <div *ngFor="let book of cart" class="wrap-book-content">
+              <div class="wrap-book-content_inner">
+                <div class="image-book">
+                  <img src="{{ book.cover_image }}" />
+                </div>
+                <div class="content-book">
+                  <a
+                    [routerLink]="['/dashboard/books/', book.id]"
+                    class="nameBook"
+                    >{{ book.title }}</a
+                  >
+                  <span class="authorBook"
+                    >Tác giả: <b>{{ book.author }}</b></span
+                  >
+                  <span
+                    >Giá:
+                    <b>{{ book.price }}</b>
+                  </span>
+                  <span
+                    >Còn lại:<b>{{ book.quantity_available }}</b></span
+                  >
+                </div>
+                <div class="wrap-book-content_bottom">
+                  <button
+                class="btn-changeQuantity"
+                (click)="handleMinus(book)"
+              >
+                -
+              </button>
+              <input [(ngModel)]="book.quantity" />
+              <button
+                class="btn-changeQuantity"
+                (click)="handlePlus(book)"
+                [disabled]="book.quantity >= book.quantity_available"
+              >
+                +
+              </button>
+                </div>
+                <div class="wrap-total-amount">
+                  <h4>Tổng tiền:</h4>
+                  <b>{{book.quantity * book.price}}đ</b>
+                </div>
+                <button class="button-delete"
+                (click)="removeItem(book)">
+                  x
+                </button>
               </div>
             </div>
-          </div>
+           </div>
           <div *ngIf="cart.length > 0" class="sum-total-amount-cart">
               <b>Tổng tiền:</b>
               <span>{{ totalPrice}}đ</span>

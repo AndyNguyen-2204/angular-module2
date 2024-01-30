@@ -14,7 +14,7 @@ import { BookService } from './shared/component/auth/book.service';
 import { CartService } from './shared/component/auth/cart.service';
 import { RegisterComponent } from './register/register.component';
 import { SharedModule } from './shared/component/shared.module';
-
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +22,7 @@ import { SharedModule } from './shared/component/shared.module';
     DashboardComponent,
     RegisterComponent
   ],
-  imports: [BrowserModule, AppRouter, FormsModule, HttpClientModule,SharedModule],
+  imports: [BrowserModule, AppRouter, FormsModule, HttpClientModule,SharedModule,ToastrModule.forRoot(),],
   providers: [UserService,AuthService,BookService,CartService],
   bootstrap: [AppComponent],
 })

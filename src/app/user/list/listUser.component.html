@@ -4,11 +4,13 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header">
+            <div class="card-header" style="margin-bottom: 20px;">
               <h3 class="text-center">{{ "Users Management" }}</h3>
-              <div class="row mt-3">
+              <div class="row mt-3" *ngIf="useInfor.role !== 'user'">
                 <div class="col-md-12 text-center">
-                  <button class="btn-create" (click)="createUser()">{{ "Add New User" }}</button>
+                  <button class="btn-create" (click)="createUser()">
+                    {{ "Add New User" }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -27,23 +29,31 @@
                     </thead>
                     <tbody>
                       <tr *ngIf="allUsers.length === 0">
-                        <td class="nullData" colspan="5">{{"Không có dữ liệu"}}</td>
+                        <td class="nullData" colspan="5">
+                          {{ "Không có dữ liệu" }}
+                        </td>
                       </tr>
                       <tr *ngFor="let user of allUsers">
                         <td>{{ user.id }}</td>
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.role }}</td>
-                        <td class="wrap-action">
+                        <td>
                           <button
                             class="btn btn-info btn-sm me-2"
+                            style="margin-right: 10px;"
                             (click)="editUser(user.id)"
+                            *ngIf="
+                              useInfor.role !== 'user' ||
+                              useInfor.id === user.id
+                            "
                           >
                             Edit
                           </button>
                           <button
                             class="btn btn-danger btn-sm"
                             (click)="removeUser(user.id)"
+                            *ngIf="useInfor.role !== 'user'"
                           >
                             Remove
                           </button>
@@ -61,38 +71,77 @@
     <div *ngIf="visible" class="custom-modal-overlay">
       <div class="custom-modal">
         <div class="modal-header">
-          <span class="font-bold white-space-nowrap p-3">{{type === "add" ?"THÊM MỚI USER":"CHỈNH SỬA USER"}}</span>
+          <span class="font-bold white-space-nowrap p-3">{{
+            type === "add" ? "THÊM MỚI USER" : "CHỈNH SỬA USER"
+          }}</span>
           <button class="close-btn" (click)="hideDialog()">X</button>
         </div>
         <div class="modal-content">
           <form #f="ngForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="username">Username</label>
-              <input id="username" name="username" type="text" [(ngModel)]="userForm.username" #username="ngModel" class="form-control">
+              <input id="username" name="username" type="text" (input)="changeValueInput($event)" class="form-control" [value]="userForm.username" />
               <span class="text-danger" *ngIf="errorMessage.username !== ''">
                 {{ errorMessage.username }}
               </span>
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input id="password" name="password" type="password" [(ngModel)]="userForm.password" #password="ngModel" class="form-control">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                (input)="changeValueInput($event)"
+                class="form-control"
+                [value]="userForm.password"
+              />
               <span class="text-danger" *ngIf="errorMessage.password !== ''">
                 {{ errorMessage.password }}
               </span>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input id="email" name="email" type="email" [(ngModel)]="userForm.email" #email="ngModel" class="form-control">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                (input)="changeValueInput($event)"
+                class="form-control"
+                [value]="userForm.email"
+              />
               <span class="text-danger" *ngIf="errorMessage.email !== ''">
                 {{ errorMessage.email }}
               </span>
             </div>
-            <!-- <div class="form-group">
-              <label for="role">Role</label>
-              <input id="role" name="role" type="text" [(ngModel)]="userForm.role" #role="ngModel" class="form-control">
-            </div> -->
+            <div class="dropdown">
+              <button
+                id="dropdown-toggle"
+                type="button"
+                (click)="toggleDropdown()"
+                [disabled]="useInfor.role === 'user'"
+              >
+                {{ userForm?.role }}
+              </button>
+              <div class="dropdown-menu" [ngClass]="{ show: showDropdown }">
+                <a
+                  *ngFor="let value of valueDropdown"
+                  class="dropdown-item"
+                  [ngClass]="{
+                    dropdownActive: userForm.role === value
+                  }"
+                  (click)="selectOption(value)"
+                  >{{ value }}</a
+                >
+              </div>
+            </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary" (click)="submit=true">{{type === "add" ?"Add User":"Edit User"}}</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                (click)="submit = true"
+              >
+                {{ type === "add" ? "Add User" : "Edit User" }}
+              </button>
             </div>
           </form>
         </div>

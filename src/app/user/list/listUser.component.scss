@@ -23,7 +23,7 @@
 					font-weight: 500;
 					font-size: 15px;
 					cursor: pointer;
-					margin: 30px 0;
+					margin: 30px 0 0 0;
 					max-width: fit-content;
 					border: none;
 					&:hover{
@@ -60,6 +60,63 @@
 			}
 		}
 	}
+	.dropdown {
+		position: relative;
+		display: inline-block;
+		margin-bottom: 15px;
+		width: 100%;
+	  }
+
+	  #dropdown-toggle {
+		background-color: white;
+		color: black;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		width: 100%;
+		text-wrap: nowrap;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		&:disabled{
+			background-color: rgb(155, 151, 151);
+		}
+	  }
+
+	  .dropdown-menu {
+		position: absolute;
+		background-color: #f9f9f9;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+		width: 100%;
+	  }
+
+	  .dropdown-menu a {
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	  }
+
+	  .dropdown-menu a:hover {
+		background-color: #f1f1f1;
+	  }
+	  .dropdown-menu {
+		display: none;
+	  }
+
+	  .dropdown-menu.show {
+		display: block;
+	  }
+	  .dropdown-item {
+		cursor: pointer;
+		font-size: 13.3333px;
+		color: #000000;
+	  }
+	  .dropdownActive{
+		background-color: aquamarine;
+		color: #d70f0f !important;
+	  }
 	.custom-modal-overlay {
 		position: fixed;
 		top: 0;
@@ -130,8 +187,7 @@
 		background-color: #0056b3;
 	  }
 	  .wrap-action{
-		display: flex;
-		gap: 10px;
+		
 	  }
 	  .text-danger{
 		color: #ff0000;

@@ -1,9 +1,16 @@
+import { generateRandomId } from '../common/utils/utils';
 import { UserModel } from './type/user';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
 export class UserService {
-  private roles = ['user', 'admin', 'editor'];
-  public demoUsers: UserModel[] = []; // Initialize demoUsers as an empty array
+  public demoUsers: UserModel[] = [{
+    username:"tu",
+    password:"111",
+    email:"anhtutgtb@gmail.com",
+    id:generateRandomId(),
+    role:"superAdmin",
+    phone:"0865268791"
+  }]; // Initialize demoUsers as an empty array
 
   constructor() {
     // Initialize other properties or perform other setup here if needed
@@ -35,11 +42,17 @@ export class UserService {
     updatedUser: UserModel
   ): Observable<{ success: boolean; reason?: string }> {
     const userIndex = this.demoUsers.findIndex(
-      (user) => user.username === updatedUser.username
+      (user) => user.id === updatedUser.id
+    );
+    const userExists = this.demoUsers.some(
+      (existingUser) => existingUser.username === updatedUser.username
     );
 
     if (userIndex === -1) {
-      return of({ success: false, reason: 'User not found' });
+      return of({ success: false, reason: 'Tài khoản không tồn tại' });
+    }
+    if (userIndex > -1 && userExists) {
+      return of({ success: false, reason: 'Tên tài khoản đã tồn tại!' });
     }
 
     // Update user information

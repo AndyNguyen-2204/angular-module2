@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
 import { User } from './type/user';
+import { UserService } from '../shared/component/auth/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  public users:User[] = [];
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient,private userService:UserService) {}
   isAuthenticated(): boolean {
     if (localStorage.getItem('token') !== null) {
       return true;
@@ -42,7 +42,7 @@ export class AuthService {
     localStorage.setItem('userInfo', JSON.stringify(user));
   }
   login(username: string, password: string): Observable<any> {
-    const userLogin = this.users.find(
+    const userLogin = this.userService.demoUsers.find(
       (user) => user.username === username && user.password === password
     );
     if (userLogin) {
@@ -55,14 +55,15 @@ export class AuthService {
           userName: userLogin.username,
           email: userLogin.email,
           phone: userLogin.phone,
+          role:userLogin.role
         },
       });
     } else {
       return throwError('Đăng nhập thất bại! Vui lòng thử lại');
     }
   }
-  register(username: string, password: string): Observable<{status:boolean,text:string}> {
-    const userLogin = this.users.find(
+  register(username: string, password: string,email:string): Observable<{status:boolean,text:string}> {
+    const userLogin = this.userService.demoUsers.find(
       (user) => user.username === username
     );
     if (userLogin) {
@@ -71,11 +72,12 @@ export class AuthService {
         text:"Đăng ký thất bại! Tên đăng nhập đã tồn tại."
       });
     } else {
-      this.users.push({
-        username:username,
-        password:password,
-        role:"admin",
-        id:this.generateRandomId()
+      this.userService.demoUsers.push({
+        username,
+        password,
+        role:"user",
+        id:this.generateRandomId(),
+        email
       })
       return of({
         status:true,

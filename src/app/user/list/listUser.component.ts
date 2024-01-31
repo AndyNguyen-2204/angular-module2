@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../shared/component/auth/type/user';
 import { UserService } from '../../shared/component/auth/user.service';
 import { ToastrService } from 'ngx-toastr';
+import {
+  generateRandomId,
+  roles,
+} from '../../shared/component/common/utils/utils';
 
 @Component({
   selector: 'listUsersComponent',
@@ -15,6 +19,9 @@ export class ListUsersComponent implements OnInit {
   submit = false;
   errorMessage = { username: '', password: '', email: '' };
   type = 'add';
+  showDropdown: boolean = false;
+  valueDropdown = roles;
+  useInfor: any = {};
   public userForm = {
     username: '',
     password: '',
@@ -23,12 +30,18 @@ export class ListUsersComponent implements OnInit {
     id: '',
   };
 
-  constructor(private authService: UserService, private toastr: ToastrService) {
+  constructor(private userService: UserService, private toastr: ToastrService) {
     this.reloadList();
   }
 
   ngOnInit() {
-    this.allUsers = this.authService.demoUsers;
+    this.allUsers = this.userService.demoUsers;
+    const userInfoString = localStorage.getItem('userInfo');
+
+    if (userInfoString) {
+      const userInfoObject = JSON.parse(userInfoString as string);
+      this.useInfor = userInfoObject;
+    }
   }
 
   onSubmit() {
@@ -39,8 +52,8 @@ export class ListUsersComponent implements OnInit {
     } else if (this.userForm.email.trim() === '') {
       this.errorMessage.email = 'Vui lòng nhập email!';
     } else if (this.type === 'add') {
-      const newForm = { ...this.userForm, id: this.generateRandomId() };
-      this.authService.createUser(newForm).subscribe({
+      const newForm = { ...this.userForm, id: generateRandomId() };
+      this.userService.createUser(newForm).subscribe({
         next: (data) => {
           if (data.success === true) {
             this.reloadList();
@@ -56,7 +69,7 @@ export class ListUsersComponent implements OnInit {
         },
       });
     } else if (this.type === 'edit') {
-      this.authService.editUser(this.userForm).subscribe({
+      this.userService.editUser(this.userForm).subscribe({
         next: (data) => {
           if (data.success === true) {
             this.reloadList();
@@ -75,7 +88,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   removeUser(id: string): void {
-    this.authService.removeUser(id).subscribe({
+    this.userService.removeUser(id).subscribe({
       next: (data) => {
         if (data.success === true) {
           this.toastr.success(' Thành công!', `Xóa user thành công!`);
@@ -90,7 +103,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   reloadList() {
-    this.allUsers = this.authService.demoUsers;
+    this.allUsers = this.userService.demoUsers;
   }
   showDialog() {
     this.visible = true;
@@ -101,7 +114,7 @@ export class ListUsersComponent implements OnInit {
   }
   editUser(idUser: string) {
     this.type = 'edit';
-    const findUser = this.allUsers.find((el: UserModel) => el.id === idUser);
+    const findUser = this.userService.demoUsers.find((el: UserModel) => el.id === idUser);
     if (findUser) {
       this.userForm = findUser;
       this.showDialog();
@@ -122,7 +135,16 @@ export class ListUsersComponent implements OnInit {
       id: '',
     };
   }
-  generateRandomId() {
-    return Math.random().toString(36).substring(2) + Date.now().toString(36);
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  selectOption(option: string) {
+    this.userForm.role = option;
+    this.showDropdown = false;
+  }
+  changeValueInput(event:any){
+    const { name, value } = event.target;
+    this.userForm={...this.userForm,[name]:value}
   }
 }

@@ -155,7 +155,6 @@ export class BookService {
     }
   }
   filterBook(keyword: string, valueFilter: string) {
-    console.log(keyword, valueFilter);
     const keywordWithoutDiacritics = this.removeDiacritics(
       keyword.toLowerCase()
     );

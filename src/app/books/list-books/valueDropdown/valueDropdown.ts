@@ -16,7 +16,17 @@ export const valueDropdown1 = [
     type: 'TT',
   },
   {
-    title:"Tất Cả",
-    type:"ALL"
-  }
+    title: 'Tất Cả',
+    type: 'ALL',
+  },
+];
+export const valueDropdown2 = [
+  {
+    title: 'Mới nhất',
+    type: 'desc',
+  },
+  {
+    title: 'Cũ nhất',
+    type: 'asc',
+  },
 ];

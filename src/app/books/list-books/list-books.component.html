@@ -39,32 +39,26 @@
               </div>
             </div>
 
-            <!-- <div class="dropdown">
+            <div class="dropdown">
               <button
                 class="dropdown-toggle"
                 type="button"
                 (click)="toggleDropdown('dropdown2')"
               >
-                Xắp xếp
+                {{ chooseSortBook.title }}
               </button>
               <div class="dropdown-menu" [ngClass]="{ show: isDropdown2Open }">
                 <a
+                  [ngClass]="{
+                    dropdownActive: chooseSortBook.title === value.title
+                  }"
+                  *ngFor="let value of valueDropdown2"
                   class="dropdown-item"
-                  (click)="selectOption('Option A', 'dropdown2')"
-                  >Option A</a
-                >
-                <a
-                  class="dropdown-item"
-                  (click)="selectOption('Option B', 'dropdown2')"
-                  >Option B</a
-                >
-                <a
-                  class="dropdown-item"
-                  (click)="selectOption('Option C', 'dropdown2')"
-                  >Option C</a
+                  (click)="selectOption(value, 'dropdown2')"
+                  >{{ value.title }}</a
                 >
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -82,6 +76,9 @@
                 >{{ book.title }}</a
               >
               <span class="authorBook">{{ book.author }}</span>
+              <div style="margin-top: 10px; margin-bottom: 10px">
+                <b>Năm xuất bản: {{ book.publication_year }}</b>
+              </div>
               <div class="wrap-book-content_bottom">
                 <b>{{ book.price | currency : "VND" : "symbol" : "1.0-0" }}</b>
                 <span

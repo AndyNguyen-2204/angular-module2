@@ -17,12 +17,14 @@ import { SharedModule } from './shared/component/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { CheckoutComponent } from './checkout/checkout.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    RegisterComponent
+    RegisterComponent,
+    CheckoutComponent
   ],
   imports: [BrowserModule, AppRouter, FormsModule, HttpClientModule,SharedModule,ToastrModule.forRoot(),BrowserAnimationsModule,CommonModule],
   providers: [UserService,AuthService,BookService,CartService],

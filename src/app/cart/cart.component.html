@@ -70,6 +70,11 @@
               <b>Tổng tiền:</b>
               <span>{{ totalPrice | currency : "VND" : "symbol" : "1.0-0"}}</span>
           </div>
+          <div *ngIf="cart.length > 0" class="wrap-btn-checkout">
+            <button class="btn-checkout"  routerLink="/checkout">
+              Checkout
+            </button>
+          </div>
         </div>
       </div>
     </div>

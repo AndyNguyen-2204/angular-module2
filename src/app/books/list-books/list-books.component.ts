@@ -61,11 +61,19 @@ export class ListBooksComponent implements OnInit {
       this.chooseTypeBook = option;
     } else if (dropdown === 'dropdown2') {
       this.isDropdown2Open = false;
-      this.allBooks = Sort(
-        this.bookService.filterBook(this.valueInput, this.chooseTypeBook.type),
-        'publication_year',
-        option.type
-      );
+      if(this.chooseTypeBook.type){
+        this.allBooks = Sort(
+          this.bookService.filterBook(this.valueInput, this.chooseTypeBook.type),
+          'publication_year',
+          option.type
+        );
+      }else{
+        this.allBooks = Sort(
+         this.allBooks,
+          'publication_year',
+          option.type
+        );
+      }
       this.chooseSortBook = option;
     }
   }
